@@ -1,32 +1,41 @@
+
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Navbar v-on:click="console.log('Hi')" ref="navbar" :currentRouteName="currentRouteName" />
+    <router-view @changeRoute="changeRoute"/>
   </div>
 </template>
 
+<script>
+import Navbar from "./components/Navbar/Navbar.vue";
+export default {
+  components: { Navbar },
+  data () {
+    return {
+      currentRouteName: '',
+    }
+  },
+  mounted() {
+    this.currentRouteName = this.$route.name;
+  },
+  methods: {
+    changeRoute(name) {
+      console.log('print '+name);
+      this.currentRouteName = name;
+    }
+  }
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url("https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap");
+* {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: #6084b6;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+nav {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 25%);
 }
 </style>
